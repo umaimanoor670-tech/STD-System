@@ -112,8 +112,40 @@ namespace STD_SYSTEM
 
             dataGridView1.DataSource = dt;
         }
+
+        private void btnSearch_Click(object sender, EventArgs e)
+        { 
+            try
+            {
+                using (SqlConnection con = new SqlConnection( @"Data Source=DESKTOP-VOCMGLJ\SQLEXPRESS;Initial Catalog=STdb;Integrated Security=True;Encrypt=False"))
+                {
+                    con.Open();
+
+                    SqlCommand cmd = new SqlCommand(
+                        "SELECT * FROM Courses WHERE CourseID=@CourseID", con);
+
+                    cmd.Parameters.AddWithValue("@CourseID", int.Parse(textBox1.Text));
+
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+                    DataTable dt = new DataTable();
+                    da.Fill(dt);
+
+                    dataGridView1.DataSource = dt;
+
+                    if (dt.Rows.Count == 0)
+                    {
+                        MessageBox.Show("Record Not Found");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
     }
     }
+    
     
     
     
