@@ -136,7 +136,49 @@ namespace STD_SYSTEM
                 MessageBox.Show(ex.Message);
             }
         }
-    }
 
-}   
+        private void btnsearch_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                using (SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-VOCMGLJ\SQLEXPRESS;Initial Catalog=STdb;Integrated Security=True;Encrypt=False"))
+                {
+                    con.Open();
+
+                    SqlCommand cmd = new SqlCommand("SELECT * FROM students WHERE studentid=@studentid", con);
+
+                    cmd.Parameters.AddWithValue("@studentid", int.Parse(textBox1.Text));
+
+                    SqlDataAdapter da = new SqlDataAdapter(cmd);
+
+                    DataTable dt = new DataTable();
+
+                    da.Fill(dt);
+
+                    dataGridView1.DataSource = dt;
+
+                    // Optional: Fill textboxes with searched data
+                    if (dt.Rows.Count > 0)
+                    {
+                        textBox2.Text = dt.Rows[0]["studentname"].ToString();
+                        textBox3.Text = dt.Rows[0]["email"].ToString();
+                        textBox4.Text = dt.Rows[0]["phone"].ToString();
+                    }
+                    else
+                    {
+                        MessageBox.Show("Record Not Found");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+    }
+        }
+
+    
+
 
