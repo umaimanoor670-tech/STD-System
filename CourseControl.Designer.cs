@@ -183,9 +183,9 @@
             // 
             this.btnSearch.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.btnSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSearch.Location = new System.Drawing.Point(700, 503);
+            this.btnSearch.Location = new System.Drawing.Point(706, 503);
             this.btnSearch.Name = "btnSearch";
-            this.btnSearch.Size = new System.Drawing.Size(120, 44);
+            this.btnSearch.Size = new System.Drawing.Size(156, 44);
             this.btnSearch.TabIndex = 40;
             this.btnSearch.Text = "Search";
             this.btnSearch.UseVisualStyleBackColor = false;
