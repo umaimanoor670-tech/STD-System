@@ -11,10 +11,10 @@ using System.Windows.Forms;
 
 namespace STD_SYSTEM
 {
-    public partial class Login : Form
+    public partial class LoginForm : Form
     {
         //CONSTRUCTOR OF LOGIN FORM
-        public Login()
+        public LoginForm()
         {
             InitializeComponent();
         }
