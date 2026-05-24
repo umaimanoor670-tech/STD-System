@@ -1,166 +1,129 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
 using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using STD_SYSTEM.Business;
 using STD_SYSTEM.Models;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace STD_SYSTEM
 {
     public partial class CourseControl : UserControl
     {
-        //Constructor
+        CourseBAL bal = new CourseBAL();
+
         public CourseControl()
         {
             InitializeComponent();
         }
-        //SAVE BUTTON
 
+        private void CourseControl_Load(object sender, EventArgs e)
+        {
+            LoadAllCourses();
+        }
+
+        private void LoadAllCourses()
+        {
+            dataGridView1.DataSource = bal.GetAllCourses();
+        }
+
+        // SAVE
         private void buttonSave_Click(object sender, EventArgs e)
         {
             try
             {
-                //Create SQL Connection
-                using (SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-VOCMGLJ\SQLEXPRESS;Initial Catalog=STdb;Integrated Security=True;Encrypt=False"))
+                Course c = new Course
                 {
-                    con.Open();
-                    // Insert new record into Courses table
-
-                    SqlCommand cmd = new SqlCommand("INSERT INTO Courses VALUES(@CourseID,@Course,@Duration)", con);
-                   
-                    //Add parameter values from textboxes
-                    cmd.Parameters.AddWithValue("@Course", textBox2.Text);
-                    cmd.Parameters.AddWithValue("@Duration", textBox3.Text);
-
-                    cmd.ExecuteNonQuery();
-                }
-                MessageBox.Show("Record Saved");
+                    CourseName = txtCourseName.Text,
+                    Duration = txtDuration.Text
+                };
+                bal.SaveCourse(c);
+                MessageBox.Show("Course saved successfully!");
+                ClearFields();
+                LoadAllCourses();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Error: " + ex.Message);
             }
         }
-        //LOAD DATA BUTTON
 
-        private void button3_Click(object sender, EventArgs e)
-        {
-            //Create Connection
-            SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-VOCMGLJ\SQLEXPRESS;Initial Catalog=STdb;Integrated Security=True;Encrypt=False");
-            con.Open();
-            //Select all records
-            SqlCommand cmd = new SqlCommand("SELECT * FROM courses", con);
-            //Fill data table
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-            dataGridView1.DataSource = dt;
-        }
-        //UPDATE BUTTON
+        // UPDATE
         private void buttonUpdate_Click(object sender, EventArgs e)
         {
             try
             {
-                using (SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-VOCMGLJ\SQLEXPRESS;Initial Catalog=STdb;Integrated Security=True;Encrypt=False"))
+                Course c = new Course
                 {
-                    con.Open();
-                    //Update EXisting record
-
-                    SqlCommand cmd = new SqlCommand("update courses set course=@course,duration=@duration where courseid=@courseid", con);
-                   
-                    //Get updated values from textboxes
-                    cmd.Parameters.AddWithValue("@Course", textBox2.Text);
-                    cmd.Parameters.AddWithValue("@Duration", textBox3.Text);
-                    //Execute update query
-                    cmd.ExecuteNonQuery();
-                }
-                MessageBox.Show("Record Updated");
+                    CourseID = int.Parse(txtCourseID.Text),
+                    CourseName = txtCourseName.Text,
+                    Duration = txtDuration.Text
+                };
+                bal.UpdateCourse(c);
+                MessageBox.Show("Course updated successfully!");
+                LoadAllCourses();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Error: " + ex.Message);
             }
         }
-        //DELETE BUTTON
+
+        // DELETE
         private void buttonDelete_Click(object sender, EventArgs e)
         {
             try
             {
-              using (SqlConnection  con = new SqlConnection(@"Data Source=DESKTOP-VOCMGLJ\SQLEXPRESS;Initial Catalog=STdb;Integrated Security=True;Encrypt=False"))
-                {
-                    con.Open();
-                    //DELETE RECORD USING COURSEID
-
-                    SqlCommand cmd = new SqlCommand("delete from courses where courseid=@courseid", con);
-                    cmd.Parameters.AddWithValue("@CourseID", int.Parse(textBox1.Text));
-                  
-                    //Execute delete query
-                }
-                MessageBox.Show("Record Deleted");
+                int id = int.Parse(txtCourseID.Text);
+                bal.DeleteCourse(id);
+                MessageBox.Show("Course deleted successfully!");
+                ClearFields();
+                LoadAllCourses();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Error: " + ex.Message);
             }
         }
-        
-        //FORM LOAD EVENT
-        private void CourseControl_Load(object sender, EventArgs e)
-        {
-            SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-VOCMGLJ\SQLEXPRESS;Initial Catalog=STdb;Integrated Security=True;Encrypt=False");
 
-            con.Open();
-            //RETRIEVE ALL COURSES RECORDS
-            SqlCommand cmd = new SqlCommand("SELECT * FROM courses", con);
-
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
-            DataTable dt = new DataTable();
-            da.Fill(dt);
-
-            dataGridView1.DataSource = dt;
-        }
-        //SEARCH BUTTON
+        // SEARCH
         private void btnSearch_Click(object sender, EventArgs e)
-        { 
+        {
             try
             {
-                using (SqlConnection con = new SqlConnection( @"Data Source=DESKTOP-VOCMGLJ\SQLEXPRESS;Initial Catalog=STdb;Integrated Security=True;Encrypt=False"))
-                {
-                    con.Open();
-                    //SEARCH RECORD BY COURSE ID
-                    SqlCommand cmd = new SqlCommand(
-                        "SELECT * FROM Courses WHERE CourseID=@CourseID", con);
-                    //GET ID FROM TEXTBOX
-                    cmd.Parameters.AddWithValue("@CourseID", int.Parse(textBox1.Text));
-                    //FILL DATA TABLE WITH SEARCH 
-                    SqlDataAdapter da = new SqlDataAdapter(cmd);
-                    DataTable dt = new DataTable();
-                    da.Fill(dt);
-                    //DISPLAY RESULT
-                    dataGridView1.DataSource = dt;
-                    //SHOW MESSAGE IF NO RECORD FOUND
-                    if (dt.Rows.Count == 0)
-                    {
-                        MessageBox.Show("Record Not Found");
-                    }
-                }
+                int id = int.Parse(txtCourseID.Text);
+                DataTable dt = bal.SearchCourse(id);
+                dataGridView1.DataSource = dt;
+                if (dt.Rows.Count == 0)
+                    MessageBox.Show("No record found!");
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Error: " + ex.Message);
             }
         }
-    }
-    }
-    
-    
-    
-    
 
-            
+        // LOAD ALL
+        private void btnLoadAll_Click(object sender, EventArgs e)
+        {
+            LoadAllCourses();
+        }
+
+        // Grid row click se textboxes fill hon
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
+                txtCourseID.Text = row.Cells["CourseID"].Value?.ToString();
+                txtCourseName.Text = row.Cells["CourseName"].Value?.ToString();
+                txtDuration.Text = row.Cells["Duration"].Value?.ToString();
+            }
+        }
+
+        private void ClearFields()
+        {
+            txtCourseID.Text = "";
+            txtCourseName.Text = "";
+            txtDuration.Text = "";
+        }
+    }
+}

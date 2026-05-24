@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace STD_SYSTEM.Models
 {
-    internal class Enrollment
+    public class Enrollment
     {
         public int EID { get; set; }
         public string StudentName { get; set; }

@@ -1,185 +1,134 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Data.SqlClient;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
+﻿using STD_SYSTEM.Business;
 using STD_SYSTEM.Models;
+using System;
+using System.Data;
+using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace STD_SYSTEM
 {
-    public partial class STDControl1 : UserControl
+    public partial class StudentControl : UserControl
     {
-        //CONSTRUCTOR
-        public STDControl1()
-        {
-          InitializeComponent();
-        }
-    
-        private void label1_Click(object sender, EventArgs e)
-        {
+        StudentBAL bal = new StudentBAL();
 
+        public StudentControl()
+        {
+            InitializeComponent();
         }
 
-       //RUNS WHEN USER CONTROL LOADS 
-        private void STDControl1_Load(object sender, EventArgs e)
+        private void StudentControl_Load(object sender, EventArgs e)
         {
-            //CREATE DATABASE CONNECTION
-            SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-VOCMGLJ\SQLEXPRESS;Initial Catalog=STdb;Integrated Security=True;Encrypt=False");
-            //OPEN CONNECTION
-            con.Open();
-            //SQL QUERY TO FETCH ALL STUDENTS
-            SqlCommand cmd = new SqlCommand("SELECT * FROM students", con);
-            //ADAP[TER TO RETRIEVE DATA 
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
-
-            DataTable dt = new DataTable();
-
-            da.Fill(dt);
-
-            dataGridView1.DataSource = dt;
+            LoadAllStudents();
         }
-        //INSERT BUTTON(SAVE RECORDS )
-        private void button1_Click(object sender, EventArgs e)
+
+        private void LoadAllStudents()
+        {
+            dataGridView1.DataSource = bal.GetAllStudents();
+        }
+
+        // SAVE
+        private void buttonSave_Click(object sender, EventArgs e)
         {
             try
             {
-                using (SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-VOCMGLJ\SQLEXPRESS;Initial Catalog=STdb;Integrated Security=True;Encrypt=False"))
+                Student s = new Student
                 {
-                    con.Open();
-                    //INSERT QUERY
-                    SqlCommand cmd = new SqlCommand("INSERT INTO students VALUES(@studentid,@studentname,@email,@phone)", con);
-
-                    cmd.Parameters.AddWithValue("@studentid", int.Parse(textBox1.Text));
-                    cmd.Parameters.AddWithValue("@studentname", textBox2.Text);
-                    cmd.Parameters.AddWithValue("@email", textBox3.Text);
-                    cmd.Parameters.AddWithValue("@phone", textBox4.Text);
-                    //EXECUTE INSERT COMMAND
-                    cmd.ExecuteNonQuery();
-                }
-
-                MessageBox.Show("Record Saved");
-
+                    StudentName = txtName.Text,
+                    StudentEmail = txtEmail.Text,
+                    Phone = txtPhone.Text
+                };
+                bal.SaveStudent(s);
+                MessageBox.Show("Student saved successfully!");
+                ClearFields();
+                LoadAllStudents();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Error: " + ex.Message);
             }
-
         }
-        //SHOW BUTTON(LOAD ALL RECORDS)
-        private void button2_Click(object sender, EventArgs e)
-        {
-            SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-VOCMGLJ\SQLEXPRESS;Initial Catalog=STdb;Integrated Security=True;Encrypt=False");
 
-            con.Open();
-            SqlCommand cmd = new SqlCommand("SELECT * FROM students", con);
-
-            SqlDataAdapter da = new SqlDataAdapter(cmd);
-            DataTable dt = new DataTable();
-           
-            //FILL DATA TABLE
-//DISPLAY IN GRID
-            dataGridView1.DataSource = dt;
-        }
-        //UPDATE BUTTON
-        private void button3_Click(object sender, EventArgs e)
+        // UPDATE
+        private void buttonUpdate_Click(object sender, EventArgs e)
         {
             try
             {
-                using (SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-VOCMGLJ\SQLEXPRESS;Initial Catalog=STdb;Integrated Security=True;Encrypt=False"))
+                Student s = new Student
                 {
-                    con.Open();
-// UPDATE QUERY
-                    SqlCommand cmd = new SqlCommand("UPDATE students SET studentname=@studentname, email=@email, phone=@phone WHERE studentid=@studentid", con);
-                    //PASS VALUES FROM TEXTBOXES
-                    cmd.Parameters.AddWithValue("@studentid", int.Parse(textBox1.Text));
-                    cmd.Parameters.AddWithValue("@studentname", textBox2.Text);
-                    cmd.Parameters.AddWithValue("@email", textBox3.Text);
-                    cmd.Parameters.AddWithValue("@phone", textBox4.Text);
-                    //EXECUTE UPDATE
-                    cmd.ExecuteNonQuery();
-                }
-
-                MessageBox.Show("Record Updated");
-
+                    StudentID = int.Parse(txtID.Text),
+                    StudentName = txtName.Text,
+                    StudentEmail = txtEmail.Text,
+                    Phone = txtPhone.Text
+                };
+                bal.UpdateStudent(s);
+                MessageBox.Show("Student updated successfully!");
+                LoadAllStudents();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Error: " + ex.Message);
             }
         }
-        //DELETE BUTTON
-        private void button4_Click(object sender, EventArgs e)
+
+        // DELETE
+        private void buttonDelete_Click(object sender, EventArgs e)
         {
             try
             {
-                using (SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-VOCMGLJ\SQLEXPRESS;Initial Catalog=STdb;Integrated Security=True;Encrypt=False"))
-                {
-                    con.Open();
-                    //DELETE QUERY
-                    SqlCommand cmd = new SqlCommand("DELETE FROM students WHERE studentid=@studentid", con);
-                    //GET STUDENT ID
-                    cmd.Parameters.AddWithValue("@studentid", int.Parse(textBox1.Text));
-                    //EXECUTE DELETE
-                    cmd.ExecuteNonQuery();
-                }
-
-                MessageBox.Show("Record Deleted");
-
+                int id = int.Parse(txtID.Text);
+                bal.DeleteStudent(id);
+                MessageBox.Show("Student deleted successfully!");
+                ClearFields();
+                LoadAllStudents();
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Error: " + ex.Message);
             }
         }
-        // SEARCH BUTTON
-        private void btnsearch_Click(object sender, EventArgs e)
+
+        // SEARCH
+        private void btnSearch_Click(object sender, EventArgs e)
         {
             try
             {
-                using (SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-VOCMGLJ\SQLEXPRESS;Initial Catalog=STdb;Integrated Security=True;Encrypt=False"))
-                {
-                    con.Open();
-                    //SEARCH QUERY BY STUDENTID
-                    SqlCommand cmd = new SqlCommand("SELECT * FROM students WHERE studentid=@studentid", con);
-
-                    cmd.Parameters.AddWithValue("@studentid", int.Parse(textBox1.Text));
-
-                    SqlDataAdapter da = new SqlDataAdapter(cmd);
-
-                    DataTable dt = new DataTable();
-
-                    da.Fill(dt);
-
-                    dataGridView1.DataSource = dt;
-
-                    // Optional: Fill textboxes with searched data
-                    if (dt.Rows.Count > 0)
-                    {
-                        textBox2.Text = dt.Rows[0]["studentname"].ToString();
-                        textBox3.Text = dt.Rows[0]["email"].ToString();
-                        textBox4.Text = dt.Rows[0]["phone"].ToString();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Record Not Found");
-                    }
-                }
+                int id = int.Parse(txtID.Text);
+                DataTable dt = bal.SearchStudent(id);
+                dataGridView1.DataSource = dt;
+                if (dt.Rows.Count == 0)
+                    MessageBox.Show("No record found!");
             }
             catch (Exception ex)
             {
-                MessageBox.Show(ex.Message);
+                MessageBox.Show("Error: " + ex.Message);
             }
         }
 
+        // LOAD ALL
+        private void btnLoadAll_Click(object sender, EventArgs e)
+        {
+            LoadAllStudents();
+        }
+
+        // Grid row click se textboxes fill hon
+        private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex >= 0)
+            {
+                DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
+                txtID.Text = row.Cells["StudentID"].Value?.ToString();
+                txtName.Text = row.Cells["StudentName"].Value?.ToString();
+                txtEmail.Text = row.Cells["StudentEmail"].Value?.ToString();
+                txtPhone.Text = row.Cells["Phone"].Value?.ToString();
+            }
+        }
+
+        private void ClearFields()
+        {
+            txtID.Text = "";
+            txtName.Text = "";
+            txtEmail.Text = "";
+            txtPhone.Text = "";
+        }
     }
-        }
-
-    
-
-
+}

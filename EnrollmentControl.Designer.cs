@@ -36,9 +36,9 @@
             this.button3 = new System.Windows.Forms.Button();
             this.buttonSave = new System.Windows.Forms.Button();
             this.buttonDelete = new System.Windows.Forms.Button();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.txtCourse = new System.Windows.Forms.TextBox();
+            this.txtStudentName = new System.Windows.Forms.TextBox();
+            this.txtEID = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -111,7 +111,6 @@
             this.button3.TabIndex = 37;
             this.button3.Text = "Add";
             this.button3.UseVisualStyleBackColor = false;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // buttonSave
             // 
@@ -137,29 +136,29 @@
             this.buttonDelete.UseVisualStyleBackColor = false;
             this.buttonDelete.Click += new System.EventHandler(this.buttonDelete_Click);
             // 
-            // textBox3
+            // txtCourse
             // 
-            this.textBox3.Location = new System.Drawing.Point(506, 298);
-            this.textBox3.Multiline = true;
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(588, 54);
-            this.textBox3.TabIndex = 33;
+            this.txtCourse.Location = new System.Drawing.Point(506, 298);
+            this.txtCourse.Multiline = true;
+            this.txtCourse.Name = "txtCourse";
+            this.txtCourse.Size = new System.Drawing.Size(588, 54);
+            this.txtCourse.TabIndex = 33;
             // 
-            // textBox2
+            // txtStudentName
             // 
-            this.textBox2.Location = new System.Drawing.Point(506, 220);
-            this.textBox2.Multiline = true;
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(588, 54);
-            this.textBox2.TabIndex = 32;
+            this.txtStudentName.Location = new System.Drawing.Point(506, 220);
+            this.txtStudentName.Multiline = true;
+            this.txtStudentName.Name = "txtStudentName";
+            this.txtStudentName.Size = new System.Drawing.Size(588, 54);
+            this.txtStudentName.TabIndex = 32;
             // 
-            // textBox1
+            // txtEID
             // 
-            this.textBox1.Location = new System.Drawing.Point(506, 140);
-            this.textBox1.Multiline = true;
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(588, 54);
-            this.textBox1.TabIndex = 31;
+            this.txtEID.Location = new System.Drawing.Point(506, 140);
+            this.txtEID.Multiline = true;
+            this.txtEID.Name = "txtEID";
+            this.txtEID.Size = new System.Drawing.Size(588, 54);
+            this.txtEID.TabIndex = 31;
             // 
             // label5
             // 
@@ -211,7 +210,6 @@
             this.dateTimePicker1.Size = new System.Drawing.Size(424, 35);
             this.dateTimePicker1.TabIndex = 40;
             this.dateTimePicker1.ValueChanged += new System.EventHandler(this.dateTimePicker1_ValueChanged);
-            this.dateTimePicker1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dateTimePicker1_KeyDown);
             // 
             // EnrollmentControl
             // 
@@ -223,9 +221,9 @@
             this.Controls.Add(this.button3);
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.buttonDelete);
-            this.Controls.Add(this.textBox3);
-            this.Controls.Add(this.textBox2);
-            this.Controls.Add(this.textBox1);
+            this.Controls.Add(this.txtCourse);
+            this.Controls.Add(this.txtStudentName);
+            this.Controls.Add(this.txtEID);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
@@ -252,9 +250,9 @@
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.Button buttonDelete;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TextBox txtCourse;
+        private System.Windows.Forms.TextBox txtStudentName;
+        private System.Windows.Forms.TextBox txtEID;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label3;
