@@ -14,7 +14,8 @@ namespace STD_SYSTEM.DataAccess
             {
                 con.Open();
                 SqlCommand cmd = new SqlCommand(
-                    "INSERT INTO Enrollments (StudentName, Course, EnrollDate) VALUES (@studentname, @course, @enrolldate)", con);
+                    "INSERT INTO Enrollments ( Eid,StudentName, Course, EnrollDate) VALUES ( @eid,@studentname, @course, @enrolldate)", con);
+                cmd.Parameters.AddWithValue("@eid", e.EID);
                 cmd.Parameters.AddWithValue("@studentname", e.StudentName);
                 cmd.Parameters.AddWithValue("@course", e.Course);
                 cmd.Parameters.AddWithValue("@enrolldate", e.EnrollDate);

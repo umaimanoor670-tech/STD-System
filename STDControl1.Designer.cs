@@ -40,7 +40,6 @@
             this.txtEmail = new System.Windows.Forms.TextBox();
             this.txtPhone = new System.Windows.Forms.TextBox();
             this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
             this.button3 = new System.Windows.Forms.Button();
             this.button4 = new System.Windows.Forms.Button();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
@@ -152,17 +151,7 @@
             this.button1.TabIndex = 10;
             this.button1.Text = "Save";
             this.button1.UseVisualStyleBackColor = false;
-            // 
-            // button2
-            // 
-            this.button2.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.button2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button2.Location = new System.Drawing.Point(576, 471);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(144, 65);
-            this.button2.TabIndex = 11;
-            this.button2.Text = "Add";
-            this.button2.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.buttonSave_Click);
             // 
             // button3
             // 
@@ -174,6 +163,7 @@
             this.button3.TabIndex = 12;
             this.button3.Text = "Update";
             this.button3.UseVisualStyleBackColor = false;
+            this.button3.Click += new System.EventHandler(this.buttonUpdate_Click);
             // 
             // button4
             // 
@@ -185,6 +175,7 @@
             this.button4.TabIndex = 13;
             this.button4.Text = "Delete";
             this.button4.UseVisualStyleBackColor = false;
+            this.button4.Click += new System.EventHandler(this.buttonDelete_Click);
             // 
             // dataGridView1
             // 
@@ -205,14 +196,15 @@
             // 
             this.btnsearch.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.btnsearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnsearch.Location = new System.Drawing.Point(673, 563);
+            this.btnsearch.Location = new System.Drawing.Point(577, 471);
             this.btnsearch.Name = "btnsearch";
             this.btnsearch.Size = new System.Drawing.Size(144, 65);
             this.btnsearch.TabIndex = 15;
             this.btnsearch.Text = "Search";
             this.btnsearch.UseVisualStyleBackColor = false;
+            this.btnsearch.Click += new System.EventHandler(this.btnSearch_Click);
             // 
-            // StudentControl
+            // STDControl1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -220,7 +212,6 @@
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.button4);
             this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.txtPhone);
             this.Controls.Add(this.txtEmail);
@@ -231,8 +222,9 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.panel1);
-            this.Name = "StudentControl";
+            this.Name = "STDControl1";
             this.Size = new System.Drawing.Size(1112, 762);
+            this.Load += new System.EventHandler(this.StudentControl_Load);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
@@ -254,7 +246,6 @@
         private System.Windows.Forms.TextBox txtEmail;
         private System.Windows.Forms.TextBox txtPhone;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button button2;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
         private System.Windows.Forms.DataGridView dataGridView1;

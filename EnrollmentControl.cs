@@ -32,6 +32,7 @@ namespace STD_SYSTEM
             {
                 Enrollment en = new Enrollment
                 {
+                    EID= int.Parse(txtEID.Text),
                     StudentName = txtStudentName.Text,
                     Course = txtCourse.Text,
                     EnrollDate = dateTimePicker1.Value

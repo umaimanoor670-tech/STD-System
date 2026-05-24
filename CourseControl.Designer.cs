@@ -32,7 +32,6 @@
             this.label1 = new System.Windows.Forms.Label();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.buttonUpdate = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
             this.buttonSave = new System.Windows.Forms.Button();
             this.buttonDelete = new System.Windows.Forms.Button();
             this.txtDuration = new System.Windows.Forms.TextBox();
@@ -81,25 +80,13 @@
             // 
             this.buttonUpdate.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.buttonUpdate.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonUpdate.Location = new System.Drawing.Point(744, 439);
+            this.buttonUpdate.Location = new System.Drawing.Point(770, 439);
             this.buttonUpdate.Name = "buttonUpdate";
             this.buttonUpdate.Size = new System.Drawing.Size(151, 44);
             this.buttonUpdate.TabIndex = 38;
             this.buttonUpdate.Text = "Update";
             this.buttonUpdate.UseVisualStyleBackColor = false;
             this.buttonUpdate.Click += new System.EventHandler(this.buttonUpdate_Click);
-            // 
-            // button3
-            // 
-            this.button3.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.button3.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.button3.Location = new System.Drawing.Point(594, 439);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(120, 44);
-            this.button3.TabIndex = 37;
-            this.button3.Text = "Add";
-            this.button3.UseVisualStyleBackColor = false;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
             // 
             // buttonSave
             // 
@@ -117,7 +104,7 @@
             // 
             this.buttonDelete.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.buttonDelete.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.buttonDelete.Location = new System.Drawing.Point(924, 439);
+            this.buttonDelete.Location = new System.Drawing.Point(951, 439);
             this.buttonDelete.Name = "buttonDelete";
             this.buttonDelete.Size = new System.Drawing.Size(120, 44);
             this.buttonDelete.TabIndex = 35;
@@ -140,7 +127,6 @@
             this.txtCourseName.Name = "txtCourseName";
             this.txtCourseName.Size = new System.Drawing.Size(588, 54);
             this.txtCourseName.TabIndex = 33;
-            
             // 
             // txtCourseID
             // 
@@ -184,7 +170,7 @@
             // 
             this.btnSearch.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.btnSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.btnSearch.Location = new System.Drawing.Point(706, 503);
+            this.btnSearch.Location = new System.Drawing.Point(593, 439);
             this.btnSearch.Name = "btnSearch";
             this.btnSearch.Size = new System.Drawing.Size(156, 44);
             this.btnSearch.TabIndex = 40;
@@ -199,7 +185,6 @@
             this.Controls.Add(this.btnSearch);
             this.Controls.Add(this.dataGridView1);
             this.Controls.Add(this.buttonUpdate);
-            this.Controls.Add(this.button3);
             this.Controls.Add(this.buttonSave);
             this.Controls.Add(this.buttonDelete);
             this.Controls.Add(this.txtDuration);
@@ -226,7 +211,6 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.DataGridView dataGridView1;
         private System.Windows.Forms.Button buttonUpdate;
-        private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button buttonSave;
         private System.Windows.Forms.Button buttonDelete;
         private System.Windows.Forms.TextBox txtDuration;

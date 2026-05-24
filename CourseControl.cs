@@ -35,6 +35,7 @@ namespace STD_SYSTEM
                     SqlCommand cmd = new SqlCommand("INSERT INTO Courses VALUES(@CourseID,@Course,@Duration)", con);
 
                     //Add parameter values from textboxes
+                    cmd.Parameters.AddWithValue("@CourseID", txtCourseID.Text);
                     cmd.Parameters.AddWithValue("@Course", txtCourseName.Text);
                     cmd.Parameters.AddWithValue("@Duration", txtDuration.Text);
 
@@ -77,6 +78,8 @@ namespace STD_SYSTEM
                     //Get updated values from textboxes
                     cmd.Parameters.AddWithValue("@Course", txtCourseName.Text);
                     cmd.Parameters.AddWithValue("@Duration", txtDuration.Text);
+                    cmd.Parameters.AddWithValue("@courseid", int.Parse(txtCourseID.Text));
+
                     //Execute update query
                     cmd.ExecuteNonQuery();
                 }
@@ -101,6 +104,7 @@ namespace STD_SYSTEM
                     cmd.Parameters.AddWithValue("@CourseID", int.Parse(txtCourseID.Text));
 
                     //Execute delete query
+                    cmd.ExecuteNonQuery();
                 }
                 MessageBox.Show("Record Deleted");
             }

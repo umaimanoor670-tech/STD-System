@@ -13,9 +13,10 @@ namespace STD_SYSTEM.DataAccess
             {
                 con.Open();
                 SqlCommand cmd = new SqlCommand(
-                    "INSERT INTO Students (StudentName, StudentEmail, Phone) VALUES (@name, @email, @phone)", con);
+                    "INSERT INTO Students (StudentID,StudentName, Email, Phone) VALUES (@id,@name, @email, @phone)", con);
+                cmd.Parameters.AddWithValue("@id", s.StudentID);
                 cmd.Parameters.AddWithValue("@name", s.StudentName);
-                cmd.Parameters.AddWithValue("@email", s.StudentEmail);
+                cmd.Parameters.AddWithValue("@email", s.Email);
                 cmd.Parameters.AddWithValue("@phone", s.Phone);
                 cmd.ExecuteNonQuery();
             }
@@ -42,10 +43,10 @@ namespace STD_SYSTEM.DataAccess
             {
                 con.Open();
                 SqlCommand cmd = new SqlCommand(
-                    "UPDATE Students SET StudentName=@name, StudentEmail=@email, Phone=@phone WHERE StudentID=@id", con);
+                    "UPDATE Students SET StudentName=@name, Email=@email, Phone=@phone WHERE StudentID=@id", con);
                 cmd.Parameters.AddWithValue("@id", s.StudentID);
                 cmd.Parameters.AddWithValue("@name", s.StudentName);
-                cmd.Parameters.AddWithValue("@email", s.StudentEmail);
+                cmd.Parameters.AddWithValue("@email", s.Email);
                 cmd.Parameters.AddWithValue("@phone", s.Phone);
                 cmd.ExecuteNonQuery();
             }

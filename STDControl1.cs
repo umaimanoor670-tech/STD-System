@@ -3,7 +3,6 @@ using STD_SYSTEM.Models;
 using System;
 using System.Data;
 using System.Windows.Forms;
-using System.Xml.Linq;
 
 namespace STD_SYSTEM
 {
@@ -14,16 +13,30 @@ namespace STD_SYSTEM
         public STDControl1()
         {
             InitializeComponent();
+
+            // Events binding
+            this.Load += StudentControl_Load;
+
+            dataGridView1.CellClick += dataGridView1_CellClick;
         }
 
+        // LOAD FORM
         private void StudentControl_Load(object sender, EventArgs e)
         {
             LoadAllStudents();
         }
 
+        // LOAD ALL DATA
         private void LoadAllStudents()
         {
-            dataGridView1.DataSource = bal.GetAllStudents();
+            try
+            {
+                dataGridView1.DataSource = bal.GetAllStudents();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Error: " + ex.Message);
+            }
         }
 
         // SAVE
@@ -33,12 +46,17 @@ namespace STD_SYSTEM
             {
                 Student s = new Student
                 {
-                    StudentName = txtName.Text,
-                    StudentEmail = txtEmail.Text,
-                    Phone = txtPhone.Text
+                    StudentID = int.Parse(txtID.Text),
+                    StudentName = txtName.Text.Trim(),
+                    Email = txtEmail.Text.Trim(),
+                    Phone = txtPhone.Text.Trim(),
+               
                 };
+
                 bal.SaveStudent(s);
+
                 MessageBox.Show("Student saved successfully!");
+
                 ClearFields();
                 LoadAllStudents();
             }
@@ -53,15 +71,25 @@ namespace STD_SYSTEM
         {
             try
             {
+                if (!int.TryParse(txtID.Text, out int id))
+                {
+                    MessageBox.Show("Invalid Student ID");
+                    return;
+                }
+
                 Student s = new Student
                 {
-                    StudentID = int.Parse(txtID.Text),
-                    StudentName = txtName.Text,
-                    StudentEmail = txtEmail.Text,
-                    Phone = txtPhone.Text
+                    StudentID = id,
+                    StudentName = txtName.Text.Trim(),
+                    Email = txtEmail.Text.Trim(),
+                    Phone = txtPhone.Text.Trim()
                 };
+
                 bal.UpdateStudent(s);
+
                 MessageBox.Show("Student updated successfully!");
+
+                ClearFields();
                 LoadAllStudents();
             }
             catch (Exception ex)
@@ -75,9 +103,16 @@ namespace STD_SYSTEM
         {
             try
             {
-                int id = int.Parse(txtID.Text);
+                if (!int.TryParse(txtID.Text, out int id))
+                {
+                    MessageBox.Show("Enter valid Student ID");
+                    return;
+                }
+
                 bal.DeleteStudent(id);
+
                 MessageBox.Show("Student deleted successfully!");
+
                 ClearFields();
                 LoadAllStudents();
             }
@@ -92,11 +127,20 @@ namespace STD_SYSTEM
         {
             try
             {
-                int id = int.Parse(txtID.Text);
+                if (!int.TryParse(txtID.Text, out int id))
+                {
+                    MessageBox.Show("Enter valid Student ID");
+                    return;
+                }
+
                 DataTable dt = bal.SearchStudent(id);
+
                 dataGridView1.DataSource = dt;
+
                 if (dt.Rows.Count == 0)
+                {
                     MessageBox.Show("No record found!");
+                }
             }
             catch (Exception ex)
             {
@@ -104,25 +148,27 @@ namespace STD_SYSTEM
             }
         }
 
-        // LOAD ALL
+        // LOAD ALL BUTTON
         private void btnLoadAll_Click(object sender, EventArgs e)
         {
             LoadAllStudents();
         }
 
-        // Grid row click se textboxes fill hon
+        // GRID CLICK FILL TEXTBOXES
         private void dataGridView1_CellClick(object sender, DataGridViewCellEventArgs e)
         {
             if (e.RowIndex >= 0)
             {
                 DataGridViewRow row = dataGridView1.Rows[e.RowIndex];
-                txtID.Text = row.Cells["StudentID"].Value?.ToString();
-                txtName.Text = row.Cells["StudentName"].Value?.ToString();
-                txtEmail.Text = row.Cells["StudentEmail"].Value?.ToString();
-                txtPhone.Text = row.Cells["Phone"].Value?.ToString();
+
+                txtID.Text = row.Cells["StudentID"]?.Value?.ToString();
+                txtName.Text = row.Cells["StudentName"]?.Value?.ToString();
+                txtEmail.Text = row.Cells["StudentEmail"]?.Value?.ToString();
+                txtPhone.Text = row.Cells["Phone"]?.Value?.ToString();
             }
         }
 
+        // CLEAR FIELDS
         private void ClearFields()
         {
             txtID.Text = "";
