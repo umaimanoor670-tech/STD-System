@@ -33,10 +33,10 @@ namespace STD_SYSTEM
                     // Insert new record into Courses table
 
                     SqlCommand cmd = new SqlCommand("INSERT INTO Courses VALUES(@CourseID,@Course,@Duration)", con);
-                   
+
                     //Add parameter values from textboxes
-                    cmd.Parameters.AddWithValue("@Course", textBox2.Text);
-                    cmd.Parameters.AddWithValue("@Duration", textBox3.Text);
+                    cmd.Parameters.AddWithValue("@Course", txtCourseName.Text);
+                    cmd.Parameters.AddWithValue("@Duration", txtDuration.Text);
 
                     cmd.ExecuteNonQuery();
                 }
@@ -73,10 +73,10 @@ namespace STD_SYSTEM
                     //Update EXisting record
 
                     SqlCommand cmd = new SqlCommand("update courses set course=@course,duration=@duration where courseid=@courseid", con);
-                   
+
                     //Get updated values from textboxes
-                    cmd.Parameters.AddWithValue("@Course", textBox2.Text);
-                    cmd.Parameters.AddWithValue("@Duration", textBox3.Text);
+                    cmd.Parameters.AddWithValue("@Course", txtCourseName.Text);
+                    cmd.Parameters.AddWithValue("@Duration", txtDuration.Text);
                     //Execute update query
                     cmd.ExecuteNonQuery();
                 }
@@ -92,14 +92,14 @@ namespace STD_SYSTEM
         {
             try
             {
-              using (SqlConnection  con = new SqlConnection(@"Data Source=DESKTOP-VOCMGLJ\SQLEXPRESS;Initial Catalog=STdb;Integrated Security=True;Encrypt=False"))
+                using (SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-VOCMGLJ\SQLEXPRESS;Initial Catalog=STdb;Integrated Security=True;Encrypt=False"))
                 {
                     con.Open();
                     //DELETE RECORD USING COURSEID
 
                     SqlCommand cmd = new SqlCommand("delete from courses where courseid=@courseid", con);
-                    cmd.Parameters.AddWithValue("@CourseID", int.Parse(textBox1.Text));
-                  
+                    cmd.Parameters.AddWithValue("@CourseID", int.Parse(txtCourseID.Text));
+
                     //Execute delete query
                 }
                 MessageBox.Show("Record Deleted");
@@ -109,7 +109,7 @@ namespace STD_SYSTEM
                 MessageBox.Show(ex.Message);
             }
         }
-        
+
         //FORM LOAD EVENT
         private void CourseControl_Load(object sender, EventArgs e)
         {
@@ -127,17 +127,17 @@ namespace STD_SYSTEM
         }
         //SEARCH BUTTON
         private void btnSearch_Click(object sender, EventArgs e)
-        { 
+        {
             try
             {
-                using (SqlConnection con = new SqlConnection( @"Data Source=DESKTOP-VOCMGLJ\SQLEXPRESS;Initial Catalog=STdb;Integrated Security=True;Encrypt=False"))
+                using (SqlConnection con = new SqlConnection(@"Data Source=DESKTOP-VOCMGLJ\SQLEXPRESS;Initial Catalog=STdb;Integrated Security=True;Encrypt=False"))
                 {
                     con.Open();
                     //SEARCH RECORD BY COURSE ID
                     SqlCommand cmd = new SqlCommand(
                         "SELECT * FROM Courses WHERE CourseID=@CourseID", con);
                     //GET ID FROM TEXTBOX
-                    cmd.Parameters.AddWithValue("@CourseID", int.Parse(textBox1.Text));
+                    cmd.Parameters.AddWithValue("@CourseID", int.Parse(txtCourseID.Text));
                     //FILL DATA TABLE WITH SEARCH 
                     SqlDataAdapter da = new SqlDataAdapter(cmd);
                     DataTable dt = new DataTable();
@@ -157,10 +157,10 @@ namespace STD_SYSTEM
             }
         }
     }
-    }
-    
-    
-    
-    
+}
 
-            
+
+
+
+
+

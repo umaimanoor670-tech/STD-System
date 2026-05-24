@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace STD_SYSTEM.Models
 {
-    internal class Course
+    public class Course
     {
         public int CourseID { get; set; }
         public string CourseName { get; set; }
