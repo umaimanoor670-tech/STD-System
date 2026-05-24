@@ -7,11 +7,11 @@ using System.Xml.Linq;
 
 namespace STD_SYSTEM
 {
-    public partial class StudentControl : UserControl
+    public partial class STDControl1 : UserControl
     {
         StudentBAL bal = new StudentBAL();
 
-        public StudentControl()
+        public STDControl1()
         {
             InitializeComponent();
         }

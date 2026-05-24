@@ -1,6 +1,6 @@
 ﻿namespace STD_SYSTEM
 {
-    partial class StudentControl
+    partial class STDControl1
     {
         /// <summary> 
         /// Required designer variable.
