@@ -189,7 +189,7 @@
             // dataGridView1
             // 
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(307, 634);
+            this.dataGridView1.Location = new System.Drawing.Point(333, 634);
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.RowHeadersWidth = 62;
             this.dataGridView1.Size = new System.Drawing.Size(776, 197);
@@ -233,6 +233,8 @@
             this.Controls.Add(this.panel1);
             this.Name = "StudentControl";
             this.Size = new System.Drawing.Size(1112, 762);
+            this.Name = "STDControl1";
+            this.Size = new System.Drawing.Size(1112, 858);
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
