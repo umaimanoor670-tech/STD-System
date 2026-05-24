@@ -76,11 +76,11 @@
     <Compile Include="CourseControl.Designer.cs">
       <DependentUpon>CourseControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="DashboardControl.cs">
+    <Compile Include="DashboardForm.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="DashboardControl.Designer.cs">
-      <DependentUpon>DashboardControl.cs</DependentUpon>
+    <Compile Include="DashboardForm.Designer.cs">
+      <DependentUpon>DashboardForm.cs</DependentUpon>
     </Compile>
     <Compile Include="EnrollmentControl.cs">
       <SubType>UserControl</SubType>
@@ -114,8 +114,8 @@
     <EmbeddedResource Include="CourseControl.resx">
       <DependentUpon>CourseControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="DashboardControl.resx">
-      <DependentUpon>DashboardControl.cs</DependentUpon>
+    <EmbeddedResource Include="DashboardForm.resx">
+      <DependentUpon>DashboardForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="EnrollmentControl.resx">
       <DependentUpon>EnrollmentControl.cs</DependentUpon>

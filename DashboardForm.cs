@@ -11,10 +11,10 @@ using System.Windows.Forms;
 
 namespace STD_SYSTEM
 {
-    public partial class DashboardControl : UserControl
+    public partial class DashboardForm : UserControl
     {
         private string username;
-        public DashboardControl(string user)
+        public DashboardForm(string user)
         {
             InitializeComponent();
             username = user; 

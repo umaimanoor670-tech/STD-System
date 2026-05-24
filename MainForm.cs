@@ -58,7 +58,7 @@ namespace STD_SYSTEM
         private void LoadDashboard()
         {
             panelMain.Controls.Clear();
-            DashboardControl dashboardControl = new DashboardControl(loggedInUser);
+            DashboardForm dashboardControl = new DashboardForm(loggedInUser);
             dashboardControl.Dock = DockStyle.Fill;
             panelMain.Controls.Add(dashboardControl);
         }
